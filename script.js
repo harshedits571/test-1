@@ -170,50 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 0, opacity: 1, filter: "blur(0px)", duration: 2, stagger: 0.15, ease: "power3.out"
             });
 
-            // --- CINEMATIC SHOWREEL EXPAND ---
-            // The showreel video scales up gracefully to fill the screen as you scroll past it
-            let showreelTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: ".showreel-section",
-                    start: "top top",
-                    end: "+=800",
-                    scrub: 1,
-                    pin: true,
-                    anticipatePin: 1
-                }
-            });
-
-            showreelTl.to(".video-container", {
-                scale: 1,      // In case we want to scale it further, or adjust CSS to start smaller
-                maxWidth: "100%",
-                width: "100vw",
-                height: "100vh",
-                borderRadius: "0px",
-                ease: "power2.inOut"
-            })
-                .to(".browser-bar", { opacity: 0, duration: 0.3 }, 0) // Fade out browser bar
-                .to(".video-ratio", { paddingBottom: 0, height: "100vh", borderRadius: "0px" }, 0); // Remove padding trick to fill screen
-
-            // --- HORIZONTAL PORTFOLIO SCROLL ---
-            const verticalGrid = document.querySelector('.vertical-grid');
-            if (verticalGrid && window.innerWidth > 900) { // Only horizontal on desktop
-                const totalWidth = verticalGrid.scrollWidth;
-                const windowWidth = window.innerWidth;
-
-                // Pin the portfolio section and slide the content horizontally
-                gsap.to(verticalGrid, {
-                    x: () => -(totalWidth - windowWidth + 100), // Slide all the way to the end
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: ".portfolio-section",
-                        start: "top top",
-                        end: () => "+=" + (totalWidth / 2), // Scroll distance matching content length
-                        pin: true,
-                        scrub: 1,
-                        anticipatePin: 1
-                    }
-                });
-            }
 
             // General Section Reveals with battery smooth animations
             gsap.utils.toArray('.pt-elem').forEach((elem) => {
@@ -328,6 +284,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     ease: "power3.out",
                     duration: 0.8
                 });
+            });
+        });
+
+        // --- PLAYABLE VIDEO EMBEDS (CANVA, YOUTUBE, ETC) ---
+        const playableVideos = document.querySelectorAll('.video-playable');
+        playableVideos.forEach(playable => {
+            playable.addEventListener('click', function () {
+                const thumbnail = this.querySelector('.thumbnail-cover');
+                const iframeContainer = this.querySelector('.iframe-container');
+                const iframe = iframeContainer.querySelector('iframe');
+
+                if (thumbnail && iframeContainer && iframe) {
+                    // Set the embedded source ONLY on click to save initial load times
+                    if (!iframe.src || iframe.src === '') {
+                        // Directly assign the embed URL without modifying query strings
+                        iframe.src = iframe.getAttribute('data-src');
+                    }
+
+                    // Hide the Custom Photo & Play Button
+                    thumbnail.style.opacity = '0';
+                    thumbnail.style.pointerEvents = 'none';
+
+                    // Reveal the Iframe / Play the Video
+                    iframeContainer.style.opacity = '1';
+                    iframeContainer.style.pointerEvents = 'auto';
+                    iframeContainer.style.zIndex = '20'; // Fixes interaction blocking
+                }
             });
         });
     }

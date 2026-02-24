@@ -1252,40 +1252,28 @@ body.hovering .cursor-dot {
     transform: scale(1.1);
 }
 
-/* Portfolio - Cinematic Horizontal Scroll Support */
-.portfolio-category {
-    overflow: hidden;
-    /* Hide horizontal scrollbar */
-    width: 100%;
-}
-
+/* Portfolio */
 .vertical-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 2rem;
-    width: fit-content;
-    padding-right: 20px;
-    /* Optional end padding */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
 }
 
-.vertical-grid .portfolio-card {
-    min-width: 320px;
-    max-width: 320px;
-    flex-shrink: 0;
-    will-change: transform;
+@media (max-width: 1200px) {
+    .vertical-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media (max-width: 900px) {
-    .vertical-grid .portfolio-card {
-        min-width: 280px;
-        max-width: 280px;
+    .vertical-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (max-width: 600px) {
-    .vertical-grid .portfolio-card {
-        min-width: 260px;
-        max-width: 260px;
+    .vertical-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -1428,6 +1416,65 @@ body.hovering .cursor-dot {
 .portfolio-card:hover img {
     transform: scale(1.08);
     filter: brightness(1.2);
+}
+
+/* Custom Playable Video Setup */
+.video-playable {
+    position: relative;
+}
+
+.thumbnail-cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+.thumbnail-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+}
+
+.play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 4rem;
+    opacity: 0.8;
+    z-index: 20;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.thumbnail-cover:hover .play-button-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+    color: var(--accent-tertiary);
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.iframe-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+}
+
+.iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .full-width {
