@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
     import('https://esm.run/@google/generative-ai').then((module) => {
         const { GoogleGenerativeAI } = module;
 
-        const API_KEY = "AIzaSyBFKtgDqLZ3U9YUIGIoUu59svAne81-EVQ";
+        const API_KEY = "AIzaSyCD09o30Wdh_aN7bezZPw6DsqAUebVfbkI";
 
         try {
             const genAI = new GoogleGenerativeAI(API_KEY);
@@ -724,3 +724,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
