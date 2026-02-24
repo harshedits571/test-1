@@ -653,6 +653,55 @@ body.hovering .cursor-dot {
     z-index: 5;
 }
 
+.orbit-spin-1 {
+    animation: wrapperSpin 40s linear infinite;
+}
+
+.orbit-spin-2 {
+    animation: wrapperSpin 60s linear infinite reverse;
+}
+
+.orbit-spin-3 {
+    animation: wrapperSpin 80s linear infinite;
+}
+
+.orbit-spin-1 .node-image {
+    animation: imageCounterSpin 40s linear infinite;
+}
+
+.orbit-spin-2 .node-image {
+    animation: imageCounterSpin 60s linear infinite reverse;
+}
+
+.orbit-spin-3 .node-image {
+    animation: imageCounterSpin 80s linear infinite;
+}
+
+.orbit-nodes-wrapper:hover,
+.orbit-nodes-wrapper:hover .node-image {
+    animation-play-state: paused;
+}
+
+@keyframes wrapperSpin {
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: 360deg;
+    }
+}
+
+@keyframes imageCounterSpin {
+    from {
+        rotate: 0deg;
+    }
+
+    to {
+        rotate: -360deg;
+    }
+}
+
 .orbit-node {
     position: absolute;
     transform: rotate(var(--a)) translateX(var(--r));
