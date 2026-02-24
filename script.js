@@ -163,12 +163,57 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
             gsap.registerPlugin(ScrollTrigger);
 
-            // Hero Elements Reveal - buttery smooth expo out
+            // Hero Elements Reveal (Soft elegant fade and float up)
             gsap.fromTo('.animate-in', {
-                y: 60, opacity: 0
+                y: 80, opacity: 0, filter: "blur(10px)"
             }, {
-                y: 0, opacity: 1, duration: 1.8, stagger: 0.15, ease: "expo.out"
+                y: 0, opacity: 1, filter: "blur(0px)", duration: 2, stagger: 0.15, ease: "power3.out"
             });
+
+            // --- CINEMATIC SHOWREEL EXPAND ---
+            // The showreel video scales up gracefully to fill the screen as you scroll past it
+            let showreelTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".showreel-section",
+                    start: "top top",
+                    end: "+=800",
+                    scrub: 1,
+                    pin: true,
+                    anticipatePin: 1
+                }
+            });
+
+            showreelTl.to(".video-container", {
+                scale: 1,      // In case we want to scale it further, or adjust CSS to start smaller
+                maxWidth: "100%",
+                width: "100vw",
+                height: "100vh",
+                borderRadius: "0px",
+                ease: "power2.inOut"
+            })
+                .to(".browser-bar", { opacity: 0, duration: 0.3 }, 0) // Fade out browser bar
+                .to(".video-ratio", { paddingBottom: 0, height: "100vh", borderRadius: "0px" }, 0); // Remove padding trick to fill screen
+
+            // --- HORIZONTAL PORTFOLIO SCROLL ---
+            const verticalGrid = document.querySelector('.vertical-grid');
+            if (verticalGrid && window.innerWidth > 900) { // Only horizontal on desktop
+                const totalWidth = verticalGrid.scrollWidth;
+                const windowWidth = window.innerWidth;
+
+                // Pin the portfolio section and slide the content horizontally
+                gsap.to(verticalGrid, {
+                    x: () => -(totalWidth - windowWidth + 100), // Slide all the way to the end
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: ".portfolio-section",
+                        start: "top top",
+                        end: () => "+=" + (totalWidth / 2), // Scroll distance matching content length
+                        pin: true,
+                        scrub: 1,
+                        anticipatePin: 1
+                    }
+                });
+            }
 
             // General Section Reveals with battery smooth animations
             gsap.utils.toArray('.pt-elem').forEach((elem) => {
@@ -251,7 +296,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // 3D and Particles disabled for ultra-minimal premium look
+        // --- 3D HOVER EFFECT FOR PORTFOLIO CARDS ---
+        const cards = document.querySelectorAll('.portfolio-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                // Calculate rotational values based on mouse position relative to center
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg tilt
+                const rotateY = ((x - centerX) / centerX) * 8;
+
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    transformPerspective: 1000,
+                    ease: "power1.out",
+                    duration: 0.4
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Reset card on mouse leave
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    ease: "power3.out",
+                    duration: 0.8
+                });
+            });
+        });
     }
 
     // --- 2. Custom Cursor & Hover States ---
