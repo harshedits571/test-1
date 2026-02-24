@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biprasish | Elite Video Editor</title>
+    <meta name="description"
+        content="Professional Video Editor turning raw footage into scroll-stopping, high retention content that drives real growth. 10M+ views generated.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- GSAP for Smooth Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader z-max">
+        <div class="loader-content">
+            <div class="loader-text scramble-text" data-text="INITIALIZING SYSTEM...">INITIALIZING SYSTEM...</div>
+            <div class="loader-percentage">0%</div>
+            <div class="loader-bar-container">
+                <div class="loader-bar glow-bar"></div>
+            </div>
+            <div class="loader-noise"></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- Background Architecture -->
+    <div class="bg-gradient-mesh">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+    <!-- Existing Particles -->
+    <canvas id="particles-canvas" class="z-back"></canvas>
+    <div class="noise-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar relative-z">
+        <div class="container">
+            <a href="#" class="logo magnetic">creative<span class="highlight">edits</span>.mov</a>
+            <ul class="nav-links">
+                <li><a href="#showreel" class="nav-item hover-target">Showreel</a></li>
+                <li><a href="#portfolio" class="nav-item hover-target">Portfolio</a></li>
+                <li><a href="#services" class="nav-item hover-target">Services</a></li>
+                <li><a href="#about" class="nav-item hover-target">About</a></li>
+                <li><a href="#contact" class="btn-primary-sm glowing-btn hover-target">Get in Touch</a></li>
+            </ul>
+            <div class="mobile-menu-toggle hover-target">
+                <i class="ph ph-list"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero relative-z overflow-hidden">
+        <!-- Hero Background Video -->
+        <div class="hero-bg-media">
+            <video src="showreel.mp4" autoplay loop muted playsinline class="bg-video"></video>
+            <div class="hero-overlay-gradient"></div>
+            <div class="hero-vignette"></div>
+        </div>
+
+        <div class="container hero-content center relative-z">
+            <div class="availability-pill animate-in hover-target">
+                <div class="status-dot"></div> Available for New Projects
+            </div>
+
+            <h1 class="hero-title animate-in delay-2">
+                Biprasish<br />
+                <span class="text-gradient highlight-glow">Chakraborty</span>
+            </h1>
+
+            <p class="subtitle animate-in delay-3">
+                Turning raw footage into <span class="highlight-text block-highlight">scroll-stopping</span>, high
+                retention cinematic
+                content that drives real <span class="text-white" style="font-weight: 700;">growth</span>. Built for the
+                modern creator economy.
+            </p>
+
+            <div class="cta-group animate-in delay-4">
+                <a href="#showreel" class="btn-primary glowing-btn hover-target px-large">
+                    <i class="ph-fill ph-play-circle" style="font-size: 1.4rem;"></i> View Masterpieces
+                </a>
+                <a href="#contact" class="btn-secondary blur-btn hover-target">
+                    Collaborate Now <i class="ph-bold ph-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="hero-stats glass-stats animate-in delay-5">
+                <div class="stat-item">
+                    <h3 class="counter-up" data-target="2">0</h3><span>+</span>
+                    <p>Years Exp</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 class="counter-up" data-target="150">0</h3><span>+</span>
+                    <p>Videos Edited</p>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <h3 class="counter-up text-gradient" data-target="10">0</h3><span class="text-gradient">M+</span>
+                    <p>Total Views</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator animate-in delay-6">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span class="scramble-text" data-text="DISCOVER">DISCOVER</span>
+        </div>
+    </header>
+
+    <!-- Scrolling Marquee -->
+    <div class="marquee-section relative-z pt-elem">
+        <div class="marquee-container">
+            <div class="marquee">
+                <!-- Group 1 -->
+                <span class="marquee-item">PREMIERE PRO <i class="ph-fill ph-video-camera"></i></span>
+                <span class="marquee-item">AFTER EFFECTS <i class="ph-fill ph-sparkle"></i></span>
+                <span class="marquee-item">DAVINCI RESOLVE <i class="ph-fill ph-palette"></i></span>
+                <span class="marquee-item">COLOR GRADING <i class="ph-fill ph-aperture"></i></span>
+                <span class="marquee-item">MOTION GRAPHICS <i class="ph-fill ph-magic-wand"></i></span>
+                <span class="marquee-item">BLENDER 3D <i class="ph-fill ph-cube"></i></span>
+                <!-- Group 2 (Clone for infinite effect) -->
+                <span class="marquee-item">PREMIERE PRO <i class="ph-fill ph-video-camera"></i></span>
+                <span class="marquee-item">AFTER EFFECTS <i class="ph-fill ph-sparkle"></i></span>
+                <span class="marquee-item">DAVINCI RESOLVE <i class="ph-fill ph-palette"></i></span>
+                <span class="marquee-item">COLOR GRADING <i class="ph-fill ph-aperture"></i></span>
+                <span class="marquee-item">MOTION GRAPHICS <i class="ph-fill ph-magic-wand"></i></span>
+                <span class="marquee-item">BLENDER 3D <i class="ph-fill ph-cube"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Showreel Section -->
+    <section id="showreel" class="section showreel-section relative-z">
+        <div class="container relative-z">
+            <div class="section-header center pt-elem">
+                <h6 class="section-kicker"><i class="ph-fill ph-film-strip"></i> THE CINEMATIC EXPERIENCE</h6>
+                <h2 class="section-title">Director's <span class="text-gradient">Cut</span></h2>
+                <p class="section-desc">A fast-paced motion design montage showcasing highly engaging cuts, YouTube
+                    edits, dynamic motion graphics, and premium grade visual storytelling.</p>
+            </div>
+
+            <div class="video-container glass-panel pt-elem spotlight-card hover-target"
+                style="max-width: 380px; margin: 0 auto; padding: 0; border-radius: 24px;">
+                <div class="browser-bar">
+                    <div class="dots">
+                        <span class="red"></span><span class="yellow"></span><span class="green"></span>
+                    </div>
+                    <div class="browser-title" style="font-size: 0.75rem;">creative_short_2026.mp4</div>
+                </div>
+                <div class="video-ratio"
+                    style="padding-bottom: 177.77%; background: #111; border-radius: 20px; overflow: hidden;">
+                    <video id="video-showreel" src="showreel.mp4" class="w-full h-full object-cover"
+                        style="position: absolute; top: 0; left: 0;" loop muted playsinline autoplay></video>
+                    <div class="custom-video-controls glass-panel">
+                        <button id="showreel-play-btn" class="ctrl-btn hover-target"><i
+                                class="ph-bold ph-play"></i></button>
+                        <button id="showreel-mute-btn" class="ctrl-btn hover-target"><i
+                                class="ph-bold ph-speaker-slash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio-section relative-z">
+        <div class="container">
+            <div class="section-header pt-elem">
+                <h6 class="section-kicker"><i class="ph-fill ph-folder-star"></i> SELECTED MASTERPIECES</h6>
+                <h2 class="section-title">Creative <span class="text-gradient">Arsenal</span></h2>
+                <p class="section-desc">Specialized editing formats engineered to dominate platform algorithms and
+                    captivate audiences globally.</p>
+            </div>
+            <div class="portfolio-category pt-elem">
+                <h3 class="category-title"><i class="ph-fill ph-device-mobile"></i> Vertical Virality (Short Form)</h3>
+                <div class="vertical-grid">
+                    <!-- Vertical Item 1 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?mobile,vertical,creator"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Gaming TikTok</h3>
+                    </div>
+                    <!-- Vertical Item 2 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?podcast,vertical"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Podcast Clip</h3>
+                    </div>
+                    <!-- Vertical Item 3 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?finance,reels"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Finance Advice</h3>
+                    </div>
+                    <!-- Vertical Item 4 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?tech,review"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Tech Review</h3>
+                    </div>
+                    <!-- Vertical Item 5 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?fitness,motivation"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Fitness Promo</h3>
+                    </div>
+                    <!-- Vertical Item 6 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?food,recipe"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Recipe Reel</h3>
+                    </div>
+                    <!-- Vertical Item 7 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?vlog,travel"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Travel Vlog</h3>
+                    </div>
+                    <!-- Vertical Item 8 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?comedy,skit"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Comedy Skit</h3>
+                    </div>
+                    <!-- Vertical Item 9 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?fashion,style"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Fashion Lookbook</h3>
+                    </div>
+                    <!-- Vertical Item 10 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/400x711/?realestate,tour"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline autoplay></video>
+                        </div>
+                        <h3>Real Estate Promo</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portfolio-category pt-elem">
+                <h3 class="category-title"><i class="ph-fill ph-monitor-play"></i> Cinematic Narratives (Long Form)</h3>
+                <div class="horizontal-grid">
+                    <!-- Horizontal Item 1 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 56.25%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/800x450/?documentary,film"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline></video>
+                            <div class="play-btn-overlay"><i class="ph-fill ph-play-circle"></i></div>
+                        </div>
+                        <h3>Documentary Film</h3>
+                        <p>Immersive storytelling with cinematic color grading.</p>
+                    </div>
+                    <!-- Horizontal Item 2 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 56.25%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/800x450/?youtube,setup"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline></video>
+                            <div class="play-btn-overlay"><i class="ph-fill ph-play-circle"></i></div>
+                        </div>
+                        <h3>YouTube Talking Head</h3>
+                        <p>High retention editing for educational content.</p>
+                    </div>
+                    <!-- Horizontal Item 3 -->
+                    <div class="portfolio-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                            style="padding-bottom: 56.25%; height: 0; background: #111;">
+                            <div class="image-gradient-overlay"></div>
+                            <img src="https://source.unsplash.com/random/800x450/?esports,gaming"
+                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
+                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
+                                loop muted playsinline></video>
+                            <div class="play-btn-overlay"><i class="ph-fill ph-play-circle"></i></div>
+                        </div>
+                        <h3>Esports Highlights</h3>
+                        <p>Adrenaline-fueled cuts and heavy sound design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Global Network Section -->
+        <section id="network" class="section network-section relative-z">
+            <div class="container relative-z">
+                <div class="section-header center pt-elem">
+                    <h6 class="section-kicker"><i class="ph-fill ph-users-three"></i> THE ALLIANCE</h6>
+                    <h2 class="section-title">Global <span class="text-gradient">Network</span></h2>
+                    <p class="section-desc">Collaborating with visionaries, elite brands, and algorithm dominators
+                        around the globe.</p>
+                </div>
+
+                <div class="orbit-container pt-elem">
+                    <!-- Orbit Rings (Background) -->
+                    <div class="orbit-ring" style="--size: 300px;"></div>
+                    <div class="orbit-ring" style="--size: 550px;"></div>
+                    <div class="orbit-ring" style="--size: 800px;"></div>
+
+                    <!-- Center Photo -->
+                    <div class="orbit-center glass-panel spotlight-card hover-target">
+                        <img src="images/profile.jpg" alt="Biprasish">
+                        <div class="center-glow"></div>
+                    </div>
+
+                    <!-- Ring 1 (Inner) -->
+                    <div class="orbit-nodes-wrapper orbit-spin-1">
+                        <!-- Client Node -->
+                        <div class="orbit-node" style="--r: 150px; --a: 0deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,man" alt="Client">
+                            </div>
+                        </div>
+                        <!-- Client Node -->
+                        <div class="orbit-node" style="--r: 150px; --a: 180deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,woman" alt="Client">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ring 2 (Middle) -->
+                    <div class="orbit-nodes-wrapper orbit-spin-2">
+                        <div class="orbit-node" style="--r: 275px; --a: 45deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,gamer" alt="Client">
+                            </div>
+                        </div>
+                        <div class="orbit-node" style="--r: 275px; --a: 165deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,creator" alt="Client">
+                            </div>
+                        </div>
+                        <div class="orbit-node" style="--r: 275px; --a: 285deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,face" alt="Client">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ring 3 (Outer) -->
+                    <div class="orbit-nodes-wrapper orbit-spin-3">
+                        <div class="orbit-node" style="--r: 400px; --a: 90deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,business" alt="Client">
+                            </div>
+                        </div>
+                        <div class="orbit-node" style="--r: 400px; --a: 210deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,model" alt="Client">
+                            </div>
+                        </div>
+                        <div class="orbit-node" style="--r: 400px; --a: 330deg;">
+                            <div class="node-image hover-target">
+                                <img src="https://source.unsplash.com/random/100x100/?portrait,artist" alt="Client">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section services-section relative-z">
+            <div class="container">
+                <div class="section-header center pt-elem">
+                    <h6 class="section-kicker"><i class="ph-fill ph-tag"></i> INVESTMENT PATHWAYS</h6>
+                    <h2 class="section-title">Scalable <span class="text-gradient">Solutions</span></h2>
+                    <p class="section-desc">Tiered editing architectures designed to scale your personal brand or
+                        enterprise
+                        to the absolute peak of attention.</p>
+                </div>
+
+                <!-- Packages -->
+                <div class="packages-grid pt-elem">
+                    <!-- Starter -->
+                    <div class="package-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="package-header">
+                            <div class="tier-icon"><i class="ph-bold ph-lightning"></i></div>
+                            <h3>Viral Short Form</h3>
+                            <p class="package-type">Reels / TikTok / Shorts</p>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="ph-bold ph-check-circle text-tertiary"></i> Split-second audience hooks</li>
+                            <li><i class="ph-bold ph-check-circle text-tertiary"></i> Animated dynamic typography</li>
+                            <li><i class="ph-bold ph-check-circle text-tertiary"></i> Algorithmic pacing optimization
+                            </li>
+                            <li><i class="ph-bold ph-check-circle text-tertiary"></i> Trend-reactive audio mixing</li>
+                        </ul>
+                        <a href="#contact" class="btn-outline full-width hover-target">Deploy Short Form</a>
+                    </div>
+
+                    <!-- Growth (Featured) -->
+                    <div class="package-card glass-panel featured spotlight-card hover-target">
+                        <div class="featured-glow"></div>
+                        <div class="featured-badge">Dominator Tier</div>
+                        <div class="package-header">
+                            <div class="tier-icon" style="color: var(--accent-secondary);"><i
+                                    class="ph-fill ph-rocket-launch"></i></div>
+                            <h3>YouTube Mastery</h3>
+                            <p class="package-type">Full A-to-Z Long Form</p>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="ph-bold ph-check-circle text-secondary"></i> Psychological story structuring
+                            </li>
+                            <li><i class="ph-bold ph-check-circle text-secondary"></i> Seamless seamless transitions
+                            </li>
+                            <li><i class="ph-bold ph-check-circle text-secondary"></i> Cinematic sound architecture</li>
+                            <li><i class="ph-bold ph-check-circle text-secondary"></i> Bespoke animated assets</li>
+                            <li><i class="ph-bold ph-check-circle text-secondary"></i> Studio-grade color science</li>
+                        </ul>
+                        <a href="#contact" class="btn-primary glowing-btn full-width hover-target">Ignite Growth</a>
+                    </div>
+
+                    <!-- Premium -->
+                    <div class="package-card glass-panel spotlight-card hover-target">
+                        <div class="card-glow"></div>
+                        <div class="package-header">
+                            <div class="tier-icon" style="color: var(--accent-primary);"><i
+                                    class="ph-fill ph-crown"></i>
+                            </div>
+                            <h3>Cinematic Opus</h3>
+                            <p class="package-type">Documentary / Ad Campaigns</p>
+                        </div>
+                        <ul class="package-features">
+                            <li><i class="ph-bold ph-check-circle text-primary"></i> Hollywood-grade color grading</li>
+                            <li><i class="ph-bold ph-check-circle text-primary"></i> Immersive spatial audio mix</li>
+                            <li><i class="ph-bold ph-check-circle text-primary"></i> Deep emotional storytelling</li>
+                            <li><i class="ph-bold ph-check-circle text-primary"></i> Untethered 8K workflow pipeline
+                            </li>
+                        </ul>
+                        <a href="#contact" class="btn-outline full-width hover-target">Request Blueprint</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Marquee Section -->
+        <section class="section testimonials-section relative-z pt-elem">
+            <div class="container">
+                <div class="section-header center pt-elem">
+                    <h6 class="section-kicker"><i class="ph-fill ph-quotes"></i> REPUTATION</h6>
+                    <h2 class="section-title">Client <span class="text-gradient">Feedback</span></h2>
+                    <p class="section-desc">What visionaries and top creators say about the editing process and final
+                        product.</p>
+                </div>
+            </div>
+
+            <!-- CSS Marquee Track -->
+            <div class="marquee-track pt-elem">
+                <div class="marquee-content testimonials-marquee">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"Biprasish fundamentally changed how our brand creates content. His
+                            understanding of retention mechanics is absolutely unmatched."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,ceo" alt="Client">
+                            <div>
+                                <h4>Alex Mercer</h4>
+                                <small>Founder, Velocity Media</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"Turnaround time is insane, but the quality never drops. He took my
+                            raw talking head videos and turned them into cinematic experiences."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,founder" alt="Client">
+                            <div>
+                                <h4>Sarah Jenkins</h4>
+                                <small>Youtube Creator (1.2M Subs)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"The motion graphics and typography he adds make the videos feel so
+                            premium. He knows exactly when to cut and when to breathe."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,tech" alt="Client">
+                            <div>
+                                <h4>Marcus Thorne</h4>
+                                <small>Tech Reviewer</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"I was skeptical about hiring out my editing, but Biprasish brought
+                            a completely new perspective that doubled our average view duration."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,marketing" alt="Client">
+                            <div>
+                                <h4>Elena Rostova</h4>
+                                <small>Marketing Director</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Duplicated for infinite scroll -->
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"Biprasish fundamentally changed how our brand creates content. His
+                            understanding of retention mechanics is absolutely unmatched."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,ceo" alt="Client">
+                            <div>
+                                <h4>Alex Mercer</h4>
+                                <small>Founder, Velocity Media</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"Turnaround time is insane, but the quality never drops. He took my
+                            raw talking head videos and turned them into cinematic experiences."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,founder" alt="Client">
+                            <div>
+                                <h4>Sarah Jenkins</h4>
+                                <small>Youtube Creator (1.2M Subs)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"The motion graphics and typography he adds make the videos feel so
+                            premium. He knows exactly when to cut and when to breathe."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,tech" alt="Client">
+                            <div>
+                                <h4>Marcus Thorne</h4>
+                                <small>Tech Reviewer</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card glass-panel hover-target">
+                        <div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
+                                class="ph-fill ph-star"></i></div>
+                        <p class="testimonial-text">"I was skeptical about hiring out my editing, but Biprasish brought
+                            a completely new perspective that doubled our average view duration."</p>
+                        <div class="testimonial-author">
+                            <img src="https://source.unsplash.com/random/100x100/?portrait,marketing" alt="Client">
+                            <div>
+                                <h4>Elena Rostova</h4>
+                                <small>Marketing Director</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section about-section relative-z">
+            <div class="container about-grid pt-elem">
+                <div class="about-image">
+                    <div class="image-wrapper glass-panel spotlight-card hover-target">
+                        <div class="profile-glow"></div>
+                        <div class="scanline"></div>
+                        <img src="images/profile.jpg" alt="Biprasish Chakraborty - Professional Video Editor"
+                            class="profile-img">
+                        <div class="experience-badge parallax-elem" data-speed="0.15">
+                            <div class="badge-bg"></div>
+                            <span>2+</span>
+                            <small>Years Shaping Reality</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-content">
+                    <h6 class="section-kicker"><i class="ph-fill ph-brain"></i> THE ARCHITECT</h6>
+                    <h2 class="section-title">Mind Behind The <span class="text-gradient">Cuts</span></h2>
+                    <div class="bio-text">
+                        <p>I’m <strong class="text-gradient">Biprasish Chakraborty</strong>, an elite video editor
+                            operating
+                            out of Assam, India, building global digital empires for creators.</p>
+                        <p>I’ve engineered content that has amassed over <strong>10 million organic views</strong>. I
+                            don't
+                            just splice clips; I architect psychological loops that arrest attention, manipulate time
+                            perception, and force engagement from the very first frame.</p>
+                        <p>Armed with a background in Zoology and a relentless creative obsession, I fuse analytical
+                            structure with chaotic, unbridled visual imagination. <strong class="text-light">My sole
+                                directive: Manufacture highly addictive, premium content that scales.</strong></p>
+                    </div>
+
+                    <div class="why-list-grid">
+                        <div class="why-item hover-target">
+                            <div class="icon-bx"><i class="ph-fill ph-chart-line-up"></i></div> Data-Driven Edits
+                        </div>
+                        <div class="why-item hover-target">
+                            <div class="icon-bx"><i class="ph-fill ph-clock-countdown"></i></div> Hyperspeed Turnaround
+                        </div>
+                        <div class="why-item hover-target">
+                            <div class="icon-bx"><i class="ph-fill ph-magnifying-glass"></i></div> Micro-Detail Focus
+                        </div>
+                        <div class="why-item hover-target">
+                            <div class="icon-bx"><i class="ph-fill ph-handshake"></i></div> Unbreakable Trust
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="btn-primary-sm glowing-btn mt-4 inline-block hover-target">Enter The
+                        Vault</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section relative-z">
+            <div class="container pt-elem">
+                <div class="contact-wrapper glass-panel spotlight-card hover-target">
+                    <div class="card-glow"></div>
+                    <div class="contact-info">
+                        <h6 class="section-kicker"><i class="ph-fill ph-broadcast"></i> TRANSMIT SIGNAL</h6>
+                        <h2 class="section-title">Initiate <br><span class="text-gradient">Protocol</span></h2>
+                        <p>Sitting on raw footage with zero impact? Let’s transmute it into highly weaponized,
+                            scroll-stopping digital assets.</p>
+
+                        <div class="contact-details">
+                            <a href="mailto:imcreativeeditsmov@gmail.com" class="contact-item hover-target">
+                                <div class="icon-circle"><i class="ph-fill ph-envelope-simple"></i></div>
+                                <div>
+                                    <small>Direct Neural Link</small>
+                                    <span>imcreativeeditsmov@gmail.com</span>
+                                </div>
+                            </a>
+                            <a href="https://www.instagram.com/creativeedits.mov" target="_blank"
+                                class="contact-item hover-target">
+                                <div class="icon-circle instagram"><i class="ph-fill ph-instagram-logo"></i></div>
+                                <div>
+                                    <small>Instagram Frequency</small>
+                                    <span>@creativeedits.mov</span>
+                                </div>
+                            </a>
+                            <div class="contact-item">
+                                <div class="icon-circle location"><i class="ph-fill ph-globe-hemisphere-east"></i></div>
+                                <div>
+                                    <small>Physical Coordinates</small>
+                                    <span>Assam, India (Global Remote)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group flex-1">
+                                <label>Designation (Name)</label>
+                                <input type="text" class="input-modern hover-target" placeholder="John Doe" required>
+                            </div>
+                            <div class="form-group flex-1">
+                                <label>Comms Channel (Email)</label>
+                                <input type="email" class="input-modern hover-target" placeholder="john@company.com"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Protocol Required</label>
+                            <select class="input-modern hover-target">
+                                <option>YouTube Dominance (Long Form)</option>
+                                <option>Algorithmic Hijack (Shorts/Reels)</option>
+                                <option>Cinematic Brand Warfare (Commercial)</option>
+                                <option>Visual Overload (Motion Graphics)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mission Briefing (Project Details)</label>
+                            <textarea class="input-modern hover-target"
+                                placeholder="Detail your exact vision, the assets you possess, and the numerical metrics you demand..."
+                                rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary glowing-btn full-width submit-btn hover-target">
+                            <span class="btn-txt">Transmit Directive</span> <i class="ph-bold ph-paper-plane-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="relative-z">
+            <div class="container footer-content">
+                <div class="footer-left">
+                    <a href="#" class="logo-text hover-target">creative<span class="highlight">edits</span>.mov</a>
+                    <p>&copy; 2026 Biprasish Chakraborty. Engineering the future visual web.</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/creativeedits.mov" target="_blank" class="hover-target"><i
+                            class="ph-fill ph-instagram-logo"></i></a>
+                    <a href="https://x.com/creativeeditss" target="_blank" class="hover-target"><i
+                            class="ph-fill ph-twitter-logo"></i></a>
+                    <a href="https://www.linkedin.com/in/imcreativeedits-mov-51a56a388" target="_blank"
+                        class="hover-target"><i class="ph-fill ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+        </footer>
+        <!-- AI Assistant Widget -->
+        <div id="ai-widget-container" class="relative-z">
+            <!-- Chat Window -->
+            <div id="ai-chat-window" class="glass-panel hidden">
+                <div class="ai-header">
+                    <div class="ai-avatar"><i class="ph-fill ph-robot"></i></div>
+                    <div class="ai-title-wrap">
+                        <h4>Biprasish AI</h4>
+                        <span class="online-status"><span class="pulse-dot-small"></span> Active</span>
+                    </div>
+                    <button id="close-chat-btn" class="hover-target"><i class="ph-bold ph-x"></i></button>
+                </div>
+
+                <div class="ai-body" id="ai-chat-body" data-lenis-prevent>
+                    <div class="ai-message system">
+                        <div class="msg-bubble">Initializing Neural Link with Gemini AI...</div>
+                    </div>
+                </div>
+
+                <div class="ai-input-area">
+                    <input type="text" id="ai-user-input" placeholder="Ask me about Biprasish..."
+                        class="hover-target" />
+                    <button id="ai-send-btn" class="hover-target"><i class="ph-bold ph-paper-plane-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Floating Action Button -->
+            <button id="ai-fab" class="glowing-btn hover-target">
+                <i class="ph-fill ph-magic-wand"></i> Ask AI
+            </button>
+        </div>
+
+        <script type="importmap">
+            {
+              "imports": {
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+              }
+            }
+        </script>
+
+        <script src="script.js" type="module"></script>
+</body>
+
+</html>
