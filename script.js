@@ -551,6 +551,14 @@ document.addEventListener('DOMContentLoaded', () => {
             aiChatWindow.classList.add('hidden');
             aiFab.style.display = 'flex';
         });
+
+        // Lock Lenis Smooth Scroll when interacting with the Chat Window
+        aiChatWindow.addEventListener('mouseenter', () => {
+            if (window.lenis) window.lenis.stop();
+        });
+        aiChatWindow.addEventListener('mouseleave', () => {
+            if (window.lenis) window.lenis.start();
+        });
     }
 
     /**
@@ -563,13 +571,23 @@ document.addEventListener('DOMContentLoaded', () => {
     import('https://esm.run/@google/generative-ai').then((module) => {
         const { GoogleGenerativeAI } = module;
 
-        const API_KEY = "AIzaSyCmNyTLyFSCpSEx--tdPTrTSR8vk9AvC4M";
+        const API_KEY = "AIzaSyBFKtgDqLZ3U9YUIGIoUu59svAne81-EVQ";
 
         try {
             const genAI = new GoogleGenerativeAI(API_KEY);
             const model = genAI.getGenerativeModel({
                 model: "gemini-2.5-flash",
-                systemInstruction: "You are the personal AI assistant for Biprasish Chakraborty, an elite professional video editor with 2+ years of experience and over 10 million organic views across social media. You operate on this portfolio website. Your purpose is to act as Biprasish's agent, answering prospective client questions gracefully, professionally, and confidently. If they ask about prices, tell them to use the Contact form as pricing depends on the scope. Keep your answers concise, futuristic, and highly engaging. Never output markdown code blocks if possible.",
+                systemInstruction: "You are the personal AI assistant for Biprasish Chakraborty, an elite professional video editor with 2+ years of experience and over 10 million organic views. You operate on this portfolio website. " +
+                    "SPECIAL INSTRUCTION: If a client asks about pricing, hiring, or wanting to talk/work with Biprasish, you MUST collect their details before answering. Ask them ONE BY ONE in this exact order: " +
+                    "1. Their Name. " +
+                    "2. Their Email Address. " +
+                    "3. Their Phone Number. " +
+                    "4. The Type of Work they need (e.g., YouTube video, Shorts, Commercial). " +
+                    "5. A short message about their project. " +
+                    "DO NOT ask all questions at once. Wait for them to answer each question before asking the next. " +
+                    "Once you have successfully collected ALL 5 pieces of information, you MUST include the following exact text format ON A NEW LINE at the very end of your final confirmation message: " +
+                    "[[SEND_EMAIL_NOW|NAME:their_name|EMAIL:their_email|PHONE:their_phone|WORK:their_work|MESSAGE:their_message]] " +
+                    "Make sure to replace the placeholder values with the actual information you collected. Then tell them their inquiry is being transmitted to Biprasish immediately. Keep other general answers concise, futuristic, and engaging.",
             });
 
             chatSession = model.startChat({
@@ -605,7 +623,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const result = await chatSession.sendMessage(text);
-            const responseText = result.response.text();
+            let responseText = result.response.text();
+
+            // Check for the special email trigger
+            // Expected format: [[SEND_EMAIL_NOW|NAME:John|EMAIL:john@x.com|PHONE:12345|WORK:Video|MESSAGE:Hi]]
+            const emailRegex = /\[\[SEND_EMAIL_NOW\|NAME:(.*?)\|EMAIL:(.*?)\|PHONE:(.*?)\|WORK:(.*?)\|MESSAGE:(.*?)\]\]/is;
+            const match = responseText.match(emailRegex);
+
+            if (match) {
+                // Remove the raw trigger command from the message shown to the user
+                responseText = responseText.replace(emailRegex, '').trim();
+
+                // Extract the details
+                const clientName = match[1].trim();
+                const clientEmail = match[2].trim();
+                const clientPhone = match[3].trim();
+                const clientWork = match[4].trim();
+                const clientMessage = match[5].trim();
+
+                // Prepare FormData for Formspree
+                const formData = new FormData();
+                formData.append('name', clientName);
+                formData.append('email', clientEmail);
+                formData.append('phone', clientPhone);
+                formData.append('service', clientWork);
+                formData.append('message', `[VIA AI AGENT]\n\nPhone Number: ${clientPhone}\nType of Work: ${clientWork}\n\nClient Message:\n${clientMessage}`);
+
+                // Send silently in sequence via Formspree API
+                fetch('https://formspree.io/f/mgolnydk', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        console.log("AI Agent Lead sent successfully to Formspree!");
+                    } else {
+                        console.error("Formspree rejected the AI Agent submission.");
+                    }
+                }).catch(err => {
+                    console.error("Network error while submitting Formspree data:", err);
+                });
+            }
+
             updateAIMessage(typingId, responseText);
         } catch (error) {
             console.error("Gemini Conversation Error:", error);
