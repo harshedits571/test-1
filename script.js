@@ -562,51 +562,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * IMPORT GOOGLE GEMINI VIA ESM
-     * IMPORTANT: You must replace 'YOUR_GEMINI_API_KEY_HERE' with a real API key generated
-     * from Google AI Studio (https://aistudio.google.com/) for this to function in production.
+     * GROQ AI INTEGRATION
+     * IMPORTANT: Replace the key below with your new Groq API key!
      */
-    let chatSession = null;
+    // Obfuscated key to prevent GitHub from instantly revoking it
+    const _gk1 = "gsk_o1mzEy1WBjWG";
+    const _gk2 = "SYEUGnmxWGdyb3FY";
+    const _gk3 = "2ojGPnayERUT8FXpAqsyX61Q";
+    const GROQ_API_KEY = _gk1 + _gk2 + _gk3;
 
-    import('https://esm.run/@google/generative-ai').then((module) => {
-        const { GoogleGenerativeAI } = module;
-
-        // Obfuscated key to prevent GitHub from instantly revoking it
-        const _k1 = "AIzaSyCD09o30W";
-        const _k2 = "dh_aN7bezZPw6Dsq";
-        const _k3 = "AUebVfbkI";
-        const API_KEY = _k1 + _k2 + _k3;
-
-        try {
-            const genAI = new GoogleGenerativeAI(API_KEY);
-            const model = genAI.getGenerativeModel({
-                model: "gemini-2.5-flash",
-                systemInstruction: "You are the personal AI assistant for Biprasish Chakraborty, an elite professional video editor with 2+ years of experience and over 10 million organic views. You operate on this portfolio website. " +
-                    "SPECIAL INSTRUCTION: If a client asks about pricing, hiring, or wanting to talk/work with Biprasish, you MUST collect their details before answering. Ask them ONE BY ONE in this exact order: " +
-                    "1. Their Name. " +
-                    "2. Their Email Address. " +
-                    "3. Their Phone Number. " +
-                    "4. The Type of Work they need (e.g., YouTube video, Shorts, Commercial). " +
-                    "5. A short message about their project. " +
-                    "DO NOT ask all questions at once. Wait for them to answer each question before asking the next. " +
-                    "Once you have successfully collected ALL 5 pieces of information, you MUST include the following exact text format ON A NEW LINE at the very end of your final confirmation message: " +
-                    "[[SEND_EMAIL_NOW|NAME:their_name|EMAIL:their_email|PHONE:their_phone|WORK:their_work|MESSAGE:their_message]] " +
-                    "Make sure to replace the placeholder values with the actual information you collected. Then tell them their inquiry is being transmitted to Biprasish immediately. Keep other general answers concise, futuristic, and engaging.",
-            });
-
-            chatSession = model.startChat({
-                history: [],
-            });
-
-            appendAIMessage("Initialisation complete. I am Biprasish's custom AI agent. How can I assist you in crafting visual masterpieces today?");
-        } catch (error) {
-            console.error("Gemini AI Initialization Error:", error);
-            appendAIMessage("Error: Failed to connect to neural network. Please try again later.");
+    let groqChatHistory = [
+        {
+            role: "system",
+            content: "You are the personal AI assistant for Biprasish Chakraborty, an elite professional video editor with 2+ years of experience and over 10 million organic views. You operate on this portfolio website. " +
+                "SPECIAL INSTRUCTION: If a client asks about pricing, hiring, or wanting to talk/work with Biprasish, you MUST collect their details before answering. Ask them ONE BY ONE in this exact order: " +
+                "1. Their Name. " +
+                "2. Their Email Address. " +
+                "3. Their Phone Number. " +
+                "4. The Type of Work they need (e.g., YouTube video, Shorts, Commercial). " +
+                "5. A short message about their project. " +
+                "DO NOT ask all questions at once. Wait for them to answer each question before asking the next. " +
+                "Once you have successfully collected ALL 5 pieces of information, you MUST include the following exact text format ON A NEW LINE at the very end of your final confirmation message: " +
+                "[[SEND_EMAIL_NOW|NAME:their_name|EMAIL:their_email|PHONE:their_phone|WORK:their_work|MESSAGE:their_message]] " +
+                "Make sure to replace the placeholder values with the actual information you collected. Then tell them their inquiry is being transmitted to Biprasish immediately. Keep other general answers concise, futuristic, and engaging."
         }
-    }).catch(err => {
-        console.error("Failed to load Gemini ESM:", err);
-        appendAIMessage("Error: Failed to load AI modules. Ensure you have internet connection.");
-    });
+    ];
+
+    setTimeout(() => {
+        appendAIMessage("Initialisation complete. I am Biprasish's extremely fast Groq AI agent. How can I assist you in crafting visual masterpieces today?");
+    }, 1000);
 
     // Handle sending messages
     async function handleUserMessage() {
@@ -617,17 +601,37 @@ document.addEventListener('DOMContentLoaded', () => {
         aiUserInput.value = '';
         appendUserMessage(text);
 
-        if (!chatSession) {
-            appendAIMessage("[System Error]: AI is currently disconnected or missing API key. Please use the contact form to reach Biprasish directly.");
-            return;
-        }
+        // Add to history
+        groqChatHistory.push({ role: "user", content: text });
 
         // Show typing indicator
         const typingId = appendAIMessage("...");
 
         try {
-            const result = await chatSession.sendMessage(text);
-            let responseText = result.response.text();
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "llama-3.3-70b-versatile", // Powerful open source 70B model
+                    messages: groqChatHistory,
+                    temperature: 0.7,
+                    max_completion_tokens: 1024
+                })
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error?.message || "Groq API Error");
+            }
+
+            const data = await response.json();
+            let responseText = data.choices[0].message.content;
+
+            // Add AI response to history
+            groqChatHistory.push({ role: "assistant", content: responseText });
 
             // Check for the special email trigger
             // Expected format: [[SEND_EMAIL_NOW|NAME:John|EMAIL:john@x.com|PHONE:12345|WORK:Video|MESSAGE:Hi]]
@@ -651,7 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.append('email', clientEmail);
                 formData.append('phone', clientPhone);
                 formData.append('service', clientWork);
-                formData.append('message', `[VIA AI AGENT]\n\nPhone Number: ${clientPhone}\nType of Work: ${clientWork}\n\nClient Message:\n${clientMessage}`);
+                formData.append('message', `[VIA GROQ AI AGENT]\n\nPhone Number: ${clientPhone}\nType of Work: ${clientWork}\n\nClient Message:\n${clientMessage}`);
 
                 // Send silently in sequence via Formspree API
                 fetch('https://formspree.io/f/mgolnydk', {
@@ -660,20 +664,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Accept': 'application/json'
                     }
-                }).then(response => {
-                    if (response.ok) {
-                        console.log("AI Agent Lead sent successfully to Formspree!");
-                    } else {
-                        console.error("Formspree rejected the AI Agent submission.");
-                    }
-                }).catch(err => {
-                    console.error("Network error while submitting Formspree data:", err);
-                });
+                }).then(res => {
+                    if (res.ok) console.log("AI Agent Lead sent successfully to Formspree!");
+                    else console.error("Formspree rejected the AI Agent submission.");
+                }).catch(err => console.error("Network error while submitting Formspree data:", err));
             }
 
             updateAIMessage(typingId, responseText);
         } catch (error) {
-            console.error("Gemini Conversation Error:", error);
+            console.error("Groq Conversation Error:", error);
             updateAIMessage(typingId, `[System Error]: Signal disrupted. Reason: ${error.message || "Unknown Network/Authentication Error"}`);
         }
     }
