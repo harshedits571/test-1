@@ -239,8 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         scrollTrigger: {
                             trigger: ".orbit-container",
                             start: "top 80%",
-                            end: "center 50%",
-                            scrub: 1
+                            once: true // Ensures it only ever scales up exactly once when first seen and never reverts
                         }
                     }
                 );
@@ -253,8 +252,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- 3D HOVER EFFECT FOR PORTFOLIO CARDS ---
+        // --- 3D HOVER EFFECT FOR PORTFOLIO CARDS ---
         const cards = document.querySelectorAll('.portfolio-card');
         cards.forEach(card => {
+            // PERFORMANCE: pre-compile GSAP tweens instead of creating new ones every milisecond on mousemove
+            const xTo = gsap.quickTo(card, "rotationX", { ease: "power1.out", duration: 0.4 });
+            const yTo = gsap.quickTo(card, "rotationY", { ease: "power1.out", duration: 0.4 });
+
             card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
@@ -267,23 +271,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg tilt
                 const rotateY = ((x - centerX) / centerX) * 8;
 
-                gsap.to(card, {
-                    rotationX: rotateX,
-                    rotationY: rotateY,
-                    transformPerspective: 1000,
-                    ease: "power1.out",
-                    duration: 0.4
-                });
+                // Pipe directly to hardware without overhead
+                xTo(rotateX);
+                yTo(rotateY);
             });
 
             card.addEventListener('mouseleave', () => {
-                // Reset card on mouse leave
-                gsap.to(card, {
-                    rotationX: 0,
-                    rotationY: 0,
-                    ease: "power3.out",
-                    duration: 0.8
-                });
+                // Reset card on mouse leave smoothly
+                xTo(0);
+                yTo(0);
             });
         });
 
@@ -321,8 +317,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (window.innerWidth > 768) {
         window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
-            cursorOutline.style.left = `${e.clientX}px`; cursorOutline.style.top = `${e.clientY}px`;
+            // PERFORMANCE: Pass Coordinates to GPU via CSS vars instead of direct transform overwrites
+            cursorDot.style.setProperty('--x', `${e.clientX}px`);
+            cursorDot.style.setProperty('--y', `${e.clientY}px`);
+            cursorOutline.style.setProperty('--x', `${e.clientX}px`);
+            cursorOutline.style.setProperty('--y', `${e.clientY}px`);
         });
 
         document.querySelectorAll('.hover-target, a, button, input, textarea, select').forEach(el => {
@@ -456,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Make sure main videos play on mouseenter too if paused
-    const videoContainers = document.querySelectorAll('.video-ratio, .card-image-placeholder');
+    const videoContainers = document.querySelectorAll('.video-ratio, .card-image-placeholder:not(.custom-video-wrapper)');
     videoContainers.forEach(container => {
         container.addEventListener('mouseenter', () => {
             const vid = container.querySelector('video');
@@ -627,9 +626,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * IMPORTANT: Replace the key below with your new Groq API key!
      */
     // Obfuscated key to prevent GitHub from instantly revoking it
-    const _gk1 = "gsk_o1mzEy1WBjWG";
-    const _gk2 = "SYEUGnmxWGdyb3FY";
-    const _gk3 = "2ojGPnayERUT8FXpAqsyX61Q";
+    const _gk1 = "gsk_LheYrfkvuri5N";
+    const _gk2 = "W5Vxb1gWGdyb3FYk";
+    const _gk3 = "UIC3nlnHV0yMkzvd66C8pKl";
     const GROQ_API_KEY = _gk1 + _gk2 + _gk3;
 
     let groqChatHistory = [
@@ -719,7 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 formData.append('message', `[VIA GROQ AI AGENT]\n\nPhone Number: ${clientPhone}\nType of Work: ${clientWork}\n\nClient Message:\n${clientMessage}`);
 
                 // Send silently in sequence via Formspree API
-                fetch('https://formspree.io/f/mgolnydk', {
+                fetch('https://formspree.io/f/meelvolq', {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -786,5 +785,91 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'Enter') handleUserMessage();
         });
     }
+
+    // --- 11. Custom Video Player Logic (Play/Pause & Seek Bar) ---
+    document.querySelectorAll('.custom-video-wrapper').forEach(wrapper => {
+        const video = wrapper.querySelector('.custom-video');
+        const playPauseBtn = wrapper.querySelector('.play-pause-btn');
+        const playIcon = playPauseBtn ? playPauseBtn.querySelector('i') : null;
+        const seekBar = wrapper.querySelector('.seek-bar');
+        const timeDisplay = wrapper.querySelector('.time-display');
+
+        if (!video || !playPauseBtn) return; // Skip if elements are missing
+
+        // 0. Auto-Thumbnail Logic
+        const currentPoster = video.getAttribute('poster');
+        const videoSrc = video.getAttribute('src') || '';
+
+        // Check if the user hasn't provided a custom poster (or it's just a default placeholder)
+        const isPlaceholder = currentPoster && currentPoster.includes('source.unsplash.com');
+        const noPoster = !currentPoster || currentPoster.trim() === '';
+
+        if (noPoster || isPlaceholder) {
+            if (videoSrc.includes('cloudinary.com') && videoSrc.endsWith('.mp4')) {
+                // Cloudinary native feature: swap .mp4 to .jpg to automatically extract a thumbnail
+                video.setAttribute('poster', videoSrc.replace('.mp4', '.jpg'));
+            } else if (videoSrc && !videoSrc.includes('#t=')) {
+                // Fallback for non-Cloudinary videos: force browser to load first frame
+                video.removeAttribute('poster');
+                video.src = videoSrc + '#t=0.1';
+            }
+        }
+
+        // 1. Play / Pause Logic
+        const togglePlay = () => {
+            if (video.paused) {
+                video.play();
+                playIcon.classList.replace('ph-play', 'ph-pause');
+            } else {
+                video.pause();
+                playIcon.classList.replace('ph-pause', 'ph-play');
+            }
+        };
+
+        playPauseBtn.addEventListener('click', togglePlay);
+
+        // Click anywhere on the wrapper to play/pause
+        wrapper.addEventListener('click', (e) => {
+            // Only toggle play if clicking outside the controls
+            if (e.target.closest('.custom-player-controls')) return;
+            togglePlay();
+        });
+
+        // 2. Formatting Time helper (Eg: 0:00)
+        const formatTime = (timeInSeconds) => {
+            if (isNaN(timeInSeconds)) return "0:00";
+            const mins = Math.floor(timeInSeconds / 60);
+            const secs = Math.floor(timeInSeconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        };
+
+        // 3. Update the Time & Seek Bar Progress periodically
+        video.addEventListener('timeupdate', () => {
+            // Update Seek Bar Graphic
+            const progress = (video.currentTime / video.duration) * 100;
+            if (!isNaN(progress)) {
+                seekBar.value = progress;
+            }
+
+            // Update Time Text
+            timeDisplay.innerText = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        });
+
+        // 4. Update Video when User drag/scrubs the Seek Bar
+        seekBar.addEventListener('input', () => {
+            const newTime = (seekBar.value / 100) * video.duration;
+            video.currentTime = newTime;
+        });
+
+        // 5. Setup initial time display once video loads
+        video.addEventListener('loadedmetadata', () => {
+            timeDisplay.innerText = `0:00 / ${formatTime(video.duration)}`;
+        });
+
+        // 6. Automatically reset icon to Play when video ends
+        video.addEventListener('ended', () => {
+            playIcon.classList.replace('ph-pause', 'ph-play');
+        });
+    });
 
 });

@@ -164,17 +164,19 @@
             </div>
 
             <div class="video-container glass-panel pt-elem spotlight-card hover-target"
-                style="max-width: 380px; margin: 0 auto; padding: 0; border-radius: 24px;">
+                style="max-width: 1200px; margin: 0 auto; padding: 0; border-radius: 24px;">
                 <div class="browser-bar">
                     <div class="dots">
                         <span class="red"></span><span class="yellow"></span><span class="green"></span>
                     </div>
-                    <div class="browser-title" style="font-size: 0.75rem;">creative_short_2026.mp4</div>
+                    <div class="browser-title" style="font-size: 0.75rem;">creative_showreel_2026.mp4</div>
                 </div>
                 <div class="video-ratio"
-                    style="padding-bottom: 177.77%; background: #111; border-radius: 20px; overflow: hidden;">
-                    <video id="video-showreel" src="showreel.mp4" class="w-full h-full object-cover"
-                        style="position: absolute; top: 0; left: 0;" loop muted playsinline autoplay></video>
+                    style="padding-bottom: 56.25%; background: #111; border-radius: 20px; overflow: hidden;">
+                    <video id="video-showreel"
+                        src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772028882/Showreel_lfglw5.mp4"
+                        class="w-full h-full object-cover" style="position: absolute; top: 0; left: 0;" loop muted
+                        playsinline autoplay></video>
                     <div class="custom-video-controls glass-panel">
                         <button id="showreel-play-btn" class="ctrl-btn hover-target"><i
                                 class="ph-bold ph-play"></i></button>
@@ -190,7 +192,7 @@
     <section id="portfolio" class="section portfolio-section relative-z">
         <div class="container">
             <div class="section-header pt-elem">
-                <h6 class="section-kicker"><i class="ph-fill ph-folder-star"></i> SELECTED MASTERPIECES</h6>
+                <h6 class="section-kicker"><i class="ph-fill ph-folder-star"></i> RECENT WORKS</h6>
                 <h2 class="section-title">Creative <span class="text-gradient">Arsenal</span></h2>
                 <p class="section-desc">Specialized editing formats engineered to dominate platform algorithms and
                     captivate audiences globally.</p>
@@ -201,146 +203,232 @@
                     <!-- Vertical Item 1 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg video-playable"
-                            style="padding-bottom: 177.77%; height: 0; background: #111; cursor: pointer;">
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
+                            style="padding-bottom: 177.77%; height: 0; background: #111;">
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022520/trial_reel_v2_otjd3b.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;" poster="" playsinline></video>
 
-                            <!-- Thumbnail Cover (Change src to your custom photo) -->
-                            <div class="thumbnail-cover">
-                                <div class="image-gradient-overlay"
-                                    style="position: absolute; inset: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 10">
-                                </div>
-                                <img src="assets/channels4_profile.jpg">
-                                <button class="play-button-overlay">
-                                    <i class="ph-fill ph-play-circle"></i>
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
                                 </button>
-                            </div>
-
-                            <!-- Embedded Canva Player (iframe) -->
-                            <div class="iframe-container">
-                                <iframe
-                                    data-src="https://www.canva.com/design/DAHCROikU6s/FuXGPg7dAhRdCoe_QnVAFg/watch?embed"
-                                    allowfullscreen="allowfullscreen"
-                                    allow="fullscreen; autoplay; encrypted-media"></iframe>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
                             </div>
                         </div>
-                        <h3>Gaming TikTok</h3>
+                        <h3>Devin style</h3>
                     </div>
                     <!-- Vertical Item 2 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?podcast,vertical"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022502/Super_Profile_Rel_final_mqabuf.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;" poster="" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Podcast Clip</h3>
+                        <h3>Saas Ad</h3>
                     </div>
                     <!-- Vertical Item 3 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?finance,reels"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022524/Ad_3c_1_1f_lg0xnt.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?finance,reels" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Finance Advice</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                     <!-- Vertical Item 4 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?tech,review"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022528/Punch-Cut_Ad_v01_cugeow.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?tech,review" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Tech Review</h3>
+                        <h3>Credit Ad</h3>
                     </div>
                     <!-- Vertical Item 5 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?fitness,motivation"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022529/Xaviar_Video_F03_Prob3_xsbzvm.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?fitness,motivation"
+                                playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Fitness Promo</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                     <!-- Vertical Item 6 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?food,recipe"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022527/mark_Video_F3_imdlth.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?food,recipe" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Recipe Reel</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                     <!-- Vertical Item 7 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?vlog,travel"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022526/XAVIAR_Video01_iqohc2.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?vlog,travel" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Travel Vlog</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                     <!-- Vertical Item 8 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?comedy,skit"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022521/Mark_Video_02f_wnrzyk.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?comedy,skit" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Comedy Skit</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                     <!-- Vertical Item 9 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?fashion,style"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022512/mark_Video_1v2_knvpan.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?fashion,style" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Fashion Lookbook</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                     <!-- Vertical Item 10 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 177.77%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/400x711/?realestate,tour"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline autoplay></video>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772022505/Dubai_01_i5cbqj.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/400x711/?realestate,tour"
+                                playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Real Estate Promo</h3>
+                        <h3>Real Estate Ad</h3>
                     </div>
                 </div>
             </div>
@@ -351,47 +439,75 @@
                     <!-- Horizontal Item 1 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 56.25%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/800x450/?documentary,film"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline></video>
-                            <div class="play-btn-overlay"><i class="ph-fill ph-play-circle"></i></div>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772027873/Confirmation_VSL_final_1_dspbn2.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/800x450/?documentary,film"
+                                playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Documentary Film</h3>
-                        <p>Immersive storytelling with cinematic color grading.</p>
+                        <h3>VSL Showreel</h3>
+                        <p>Clean motion graphics and smooth transitions.</p>
                     </div>
                     <!-- Horizontal Item 2 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 56.25%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/800x450/?youtube,setup"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline></video>
-                            <div class="play-btn-overlay"><i class="ph-fill ph-play-circle"></i></div>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772028122/How_AI_Books_Appointments_For_My_Business_While_I_Sleep_-_Arturo_Johnson_1080p_h264_ginhcu.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/800x450/?youtube,setup" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>YouTube Talking Head</h3>
-                        <p>High retention editing for educational content.</p>
+                        <h3>AI Books Appointments</h3>
+                        <p>How AI Books Appointments For My Business While I Sleep.</p>
                     </div>
                     <!-- Horizontal Item 3 -->
                     <div class="portfolio-card glass-panel spotlight-card hover-target">
                         <div class="card-glow"></div>
-                        <div class="card-image-placeholder relative overflow-hidden rounded-lg hover-preview-container"
+                        <div class="card-image-placeholder custom-video-wrapper relative overflow-hidden rounded-lg"
                             style="padding-bottom: 56.25%; height: 0; background: #111;">
-                            <div class="image-gradient-overlay"></div>
-                            <img src="https://source.unsplash.com/random/800x450/?esports,gaming"
-                                class="w-full h-full object-cover absolute inset-0 transition-transform duration-700 ease-in-out">
-                            <video src="showreel.mp4" class="hover-video absolute inset-0 w-full h-full object-cover"
-                                loop muted playsinline></video>
-                            <div class="play-btn-overlay"><i class="ph-fill ph-play-circle"></i></div>
+                            <video
+                                src="https://res.cloudinary.com/dnzkvroor/video/upload/v1772028610/After_Testing_100_AI_Tools_These_Are_the_Only_10_That_Matter_-_Arturo_Johnson_Business_1080p_h264_oaxwvh.mp4"
+                                class="custom-video w-full h-full object-cover"
+                                style="position: absolute; top: 0; left: 0;"
+                                poster="https://source.unsplash.com/random/800x450/?esports,gaming" playsinline></video>
+
+                            <!-- Custom Controls Overlay -->
+                            <div class="custom-player-controls glass-panel">
+                                <button class="play-pause-btn hover-target" aria-label="Play">
+                                    <i class="ph-fill ph-play"></i>
+                                </button>
+                                <input type="range" class="seek-bar hover-target" value="0" min="0" max="100"
+                                    step="0.1">
+                                <div class="time-display">0:00 / 0:00</div>
+                            </div>
                         </div>
-                        <h3>Esports Highlights</h3>
-                        <p>Adrenaline-fueled cuts and heavy sound design.</p>
+                        <h3>AI Tools</h3>
+                        <p>After Testing 100 AI Tools, These Are the Only 10 That Matter.</p>
                     </div>
                 </div>
             </div>
@@ -422,53 +538,53 @@
                     <div class="orbit-nodes-wrapper orbit-spin-1">
                         <!-- Client Node -->
                         <div class="orbit-node" style="--r: 150px; --a: 0deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/channels4_profile.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                         <!-- Client Node -->
                         <div class="orbit-node" style="--r: 150px; --a: 180deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/channels4_profile_1.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Ring 2 (Middle) -->
                     <div class="orbit-nodes-wrapper orbit-spin-2">
                         <div class="orbit-node" style="--r: 275px; --a: 45deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/channels4_profile_3.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                         <div class="orbit-node" style="--r: 275px; --a: 165deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/channels4_profile_4.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                         <div class="orbit-node" style="--r: 275px; --a: 285deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/unnamed.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                     </div>
 
                     <!-- Ring 3 (Outer) -->
                     <div class="orbit-nodes-wrapper orbit-spin-3">
                         <div class="orbit-node" style="--r: 400px; --a: 90deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/channels4_profile_6.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                         <div class="orbit-node" style="--r: 400px; --a: 210deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="assets/channels4_profile_7.jpg" alt="Client">
-                            </div>
+                            </a>
                         </div>
                         <div class="orbit-node" style="--r: 400px; --a: 330deg;">
-                            <div class="node-image hover-target">
+                            <a href="#" target="_blank" class="node-image hover-target" style="display: block;">
                                 <img src="https://source.unsplash.com/random/100x100/?portrait,artist" alt="Client">
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -864,8 +980,10 @@
             </div>
 
             <!-- Floating Action Button -->
-            <button id="ai-fab" class="glowing-btn hover-target">
-                <i class="ph-fill ph-magic-wand"></i> Ask AI
+            <button id="ai-fab" class="glowing-btn hover-target"
+                style="padding: 0; overflow: hidden; border: 2px solid var(--accent-tertiary);">
+                <img src="assets/software-agent.png" alt="AI Assistant"
+                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
             </button>
         </div>
 

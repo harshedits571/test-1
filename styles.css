@@ -210,7 +210,8 @@ ul {
     height: 8px;
     background-color: var(--text-main);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%, -50%);
+    /* GPU Accelerated */
     z-index: 99999;
     pointer-events: none;
     mix-blend-mode: difference;
@@ -225,22 +226,24 @@ ul {
     height: 40px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%, -50%);
+    /* GPU Accelerated */
     z-index: 99998;
     pointer-events: none;
-    transition: width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s, border-color 0.3s;
+    transition: transform 0.1s ease, width 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), height 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.3s, border-color 0.3s;
 }
 
 body.hovering .cursor-outline {
     width: 70px;
     height: 70px;
     background-color: rgba(255, 255, 255, 0.05);
+    /* Soft transparent fill instead of blur */
     border-color: transparent;
-    backdrop-filter: blur(2px);
 }
 
 body.hovering .cursor-dot {
-    transform: translate(-50%, -50%) scale(0.5);
+    transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%, -50%) scale(0.5);
+    /* Prevents overwriting JS coordinates */
 }
 
 /* =========================================
@@ -704,15 +707,21 @@ body.hovering .cursor-dot {
 
 .orbit-node {
     position: absolute;
+    top: 50%;
+    /* Force perfectly to the origin point of the wrapper */
+    left: 50%;
+    width: 0;
+    height: 0;
     transform: rotate(var(--a)) translateX(var(--r));
 }
 
 .node-image {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Keep them perfectly upright regardless of position */
-    transform: translate(-50%, -50%) rotate(calc(var(--a) * -1));
+    /* Physically align the absolute center of the 60x60 container to the 0,0 origin of the parent node */
+    top: -30px;
+    left: -30px;
+    /* Keep them perfectly upright regardless of position by counter-rotating the mathematical angle */
+    transform: rotate(calc(var(--a) * -1));
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -724,7 +733,7 @@ body.hovering .cursor-dot {
 }
 
 .node-image:hover {
-    transform: translate(-50%, -50%) rotate(calc(var(--a) * -1)) scale(1.15);
+    transform: rotate(calc(var(--a) * -1)) scale(1.15);
     border-color: var(--accent-tertiary);
     z-index: 20;
 }
@@ -842,12 +851,37 @@ body.hovering .cursor-dot {
 }
 
 .status-dot {
+    position: relative;
     width: 8px;
     height: 8px;
     background: #10b981;
     border-radius: 50%;
     box-shadow: 0 0 12px #10b981;
-    animation: pulse 2s infinite;
+}
+
+.status-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: #10b981;
+    border-radius: 50%;
+    animation: ripple-wave 1.5s infinite ease-out;
+    z-index: -1;
+}
+
+@keyframes ripple-wave {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(3.5);
+        opacity: 0;
+    }
 }
 
 .hero-content {
@@ -1072,6 +1106,12 @@ body.hovering .cursor-dot {
     position: relative;
     overflow: hidden;
     transition: var(--transition-smooth);
+
+    /* PERFORMANCE: Force GPU acceleration to stop scrolling lag from blur effects */
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, background-color;
 }
 
 .glass-panel:hover {
@@ -1320,6 +1360,11 @@ body.hovering .cursor-dot {
     display: flex;
     flex-direction: column;
     height: 100%;
+
+    /* PERFORMANCE: Pre-allocate GPU memory for the 3D hover tilt */
+    will-change: transform;
+    transform-style: preserve-3d;
+    transform: perspective(1000px) translateZ(0);
 }
 
 .portfolio-card .card-icon {
@@ -1556,6 +1601,7 @@ body.hovering .cursor-dot {
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2.5rem;
     align-items: stretch;
+    margin-top: 4rem;
 }
 
 .package-card {
@@ -1565,6 +1611,8 @@ body.hovering .cursor-dot {
     position: relative;
     border-radius: 32px;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: visible !important;
+    /* Prevents the top featured badge from clipping */
 }
 
 .package-card.featured {
@@ -1812,11 +1860,12 @@ body.hovering .cursor-dot {
 .experience-badge {
     position: absolute;
     bottom: 30px;
-    left: 30px;
+    right: 30px;
     z-index: 3;
     padding: 1.5rem;
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 .badge-bg {
@@ -2004,6 +2053,11 @@ select.input-modern {
     background-position-y: center;
 }
 
+select.input-modern option {
+    background-color: #111;
+    color: #fff;
+}
+
 .submit-btn {
     margin-top: 1.5rem;
     padding: 1.5rem;
@@ -2103,7 +2157,7 @@ footer {
 /* Responsive */
 @media (max-width: 1200px) {
     .experience-badge {
-        left: 20px;
+        right: 20px;
         bottom: 20px;
     }
 }
@@ -2462,4 +2516,104 @@ footer {
         width: 320px;
         height: 420px;
     }
+}
+
+/* =========================================
+   CUSTOM VIDEO PLAYER CONTROLS
+========================================= */
+.custom-video-wrapper .custom-player-controls {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 15px;
+    border-radius: 50px;
+    /* Pill shape */
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+}
+
+/* Reveal controls on hover */
+.custom-video-wrapper:hover .custom-player-controls {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.play-pause-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.play-pause-btn:hover {
+    color: var(--accent-tertiary);
+    /* Will use your existing blue accent */
+}
+
+.time-display {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.75rem;
+    font-family: inherit;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Custom Range Input (Seek Bar) */
+.seek-bar {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Thumb (The draggable circle) - Webkit */
+.seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: transform 0.2s ease;
+}
+
+.seek-bar::-webkit-slider-thumb:hover {
+    transform: scale(1.4);
+}
+
+/* Thumb - Firefox */
+.seek-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: transform 0.2s ease;
+}
+
+.seek-bar::-moz-range-thumb:hover {
+    transform: scale(1.4);
 }
