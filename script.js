@@ -127,8 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 gestureDirection: 'vertical',
                 smooth: true,
                 mouseMultiplier: 1,
-                smoothTouch: false,
-                touchMultiplier: 2,
+                smoothTouch: true,
+                touchMultiplier: 1.5,
             });
 
             lenis.on('scroll', ScrollTrigger.update);
@@ -259,28 +259,30 @@ document.addEventListener('DOMContentLoaded', () => {
             const xTo = gsap.quickTo(card, "rotationX", { ease: "power1.out", duration: 0.4 });
             const yTo = gsap.quickTo(card, "rotationY", { ease: "power1.out", duration: 0.4 });
 
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+            if (window.innerWidth > 768) {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
 
-                // Calculate rotational values based on mouse position relative to center
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+                    // Calculate rotational values based on mouse position relative to center
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
 
-                const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg tilt
-                const rotateY = ((x - centerX) / centerX) * 8;
+                    const rotateX = ((y - centerY) / centerY) * -8; // Max 8 deg tilt
+                    const rotateY = ((x - centerX) / centerX) * 8;
 
-                // Pipe directly to hardware without overhead
-                xTo(rotateX);
-                yTo(rotateY);
-            });
+                    // Pipe directly to hardware without overhead
+                    xTo(rotateX);
+                    yTo(rotateY);
+                });
 
-            card.addEventListener('mouseleave', () => {
-                // Reset card on mouse leave smoothly
-                xTo(0);
-                yTo(0);
-            });
+                card.addEventListener('mouseleave', () => {
+                    // Reset card on mouse leave smoothly
+                    xTo(0);
+                    yTo(0);
+                });
+            }
         });
 
         // --- PLAYABLE VIDEO EMBEDS (CANVA, YOUTUBE, ETC) ---

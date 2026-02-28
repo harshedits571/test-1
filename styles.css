@@ -48,6 +48,7 @@ html.lenis body {
 
 .lenis.lenis-smooth {
     scroll-behavior: auto !important;
+    touch-action: pan-y;
 }
 
 .lenis.lenis-smooth [data-lenis-prevent] {
@@ -1009,7 +1010,7 @@ body.hovering .cursor-dot {
     width: 2px;
     height: 6px;
     background: var(--accent-tertiary);
-    border-radius: 2px;
+    border-radius: 12px;
     margin-top: 6px;
     animation: scrollWheel 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
 }
@@ -1112,6 +1113,8 @@ body.hovering .cursor-dot {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: transform, background-color;
+    touch-action: pan-y pan-x;
+    /* Allow scrolling and swiping */
 }
 
 .glass-panel:hover {
@@ -1246,7 +1249,8 @@ body.hovering .cursor-dot {
 }
 
 /* Custom Video Controls */
-.custom-video-controls {
+.custom-video-controls,
+.custom-player-controls {
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -1260,6 +1264,22 @@ body.hovering .cursor-dot {
     border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 20;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    width: max-content;
+    max-width: 90%;
+    pointer-events: none;
+    /* Let touches pass through the empty background */
+}
+
+.custom-video-controls *,
+.custom-player-controls * {
+    pointer-events: auto;
+    /* Re-enable clicks on the buttons/sliders */
+}
+
+.custom-player-controls {
+    padding: 10px 20px;
+    gap: 1rem;
+    bottom: 15px;
 }
 
 .custom-video-controls.small {
@@ -1313,7 +1333,39 @@ body.hovering .cursor-dot {
 
 @media (max-width: 600px) {
     .vertical-grid {
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        gap: 1rem;
+        padding-bottom: 2rem;
+        /* Give space for controls */
+        padding-inline: 1rem;
+        /* Add padding to edges */
+        margin-inline: -1rem;
+        /* Negative margin to let it scroll edge-to-edge */
+        scrollbar-width: none;
+        /* Firefox */
+        -webkit-overflow-scrolling: touch;
+        pointer-events: auto;
+        /* Required to capture swipe drags */
+        position: relative;
+        z-index: 10;
+    }
+
+    .vertical-grid::-webkit-scrollbar {
+        display: none;
+        /* Safari and Chrome */
+    }
+
+    .vertical-grid .portfolio-card {
+        flex: 0 0 85vw;
+        max-width: 85vw;
+        scroll-snap-align: center;
+        pointer-events: auto !important;
+        touch-action: pan-x pan-y !important;
+        transform-style: flat;
+        will-change: auto;
     }
 }
 
@@ -1360,11 +1412,6 @@ body.hovering .cursor-dot {
     display: flex;
     flex-direction: column;
     height: 100%;
-
-    /* PERFORMANCE: Pre-allocate GPU memory for the 3D hover tilt */
-    will-change: transform;
-    transform-style: preserve-3d;
-    transform: perspective(1000px) translateZ(0);
 }
 
 .portfolio-card .card-icon {
@@ -1634,7 +1681,7 @@ body.hovering .cursor-dot {
     transform: translateX(-50%);
     background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
     padding: 0.6rem 1.8rem;
-    border-radius: 30px;
+    border-radius: 24px;
     font-size: 0.8rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -1811,7 +1858,7 @@ body.hovering .cursor-dot {
     padding: 0;
     background: #000;
     position: relative;
-    border-radius: 30px;
+    border-radius: 24px;
 }
 
 .profile-glow {
@@ -2244,7 +2291,27 @@ footer {
     }
 
     .contact-wrapper {
-        padding: 2rem;
+        padding: 1.5rem;
+        gap: 2rem;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .contact-item span,
+    .contact-item small {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .cta-group {
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .cta-group a {
+        width: 100%;
     }
 
     .footer-content {
@@ -2304,6 +2371,8 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    pointer-events: none;
+    /* Prevents invisible layout box from blocking page clicks/swipes */
 }
 
 #ai-fab {
@@ -2317,6 +2386,7 @@ footer {
     cursor: pointer;
     box-shadow: 0 10px 30px rgba(77, 118, 253, 0.4);
     transition: var(--transition-bounce);
+    pointer-events: auto;
 }
 
 #ai-fab:hover {
@@ -2336,6 +2406,7 @@ footer {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-origin: bottom right;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: auto;
 }
 
 #ai-chat-window.hidden {
@@ -2580,7 +2651,7 @@ footer {
     width: 100%;
     height: 4px;
     background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
+    border-radius: 24px;
     outline: none;
     cursor: pointer;
 }
@@ -2616,4 +2687,47 @@ footer {
 
 .seek-bar::-moz-range-thumb:hover {
     transform: scale(1.4);
+}
+
+@media (max-width: 768px) {
+    .packages-grid {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        gap: 1.5rem;
+        padding-top: 4rem;
+        /* Extra space so the featured badge isn't chopped off by overflow hidden */
+        padding-bottom: 2rem;
+        padding-inline: 10vw;
+        /* Shows previous and next cards peeking out */
+        margin-inline: -1rem;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        pointer-events: auto;
+    }
+
+    .packages-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .package-card {
+        flex: 0 0 75vw;
+        /* Slimmer card so edges pop out */
+        max-width: 75vw;
+        padding: 3rem 1.5rem;
+        /* Slightly less massive inner padding on mobile */
+        scroll-snap-align: center;
+        pointer-events: auto !important;
+        touch-action: pan-x pan-y !important;
+    }
+
+    .package-card.featured {
+        transform: scale(1);
+        /* Prevent scale from breaking scroll height boundaries */
+    }
+
+    .package-card.featured:hover {
+        transform: scale(1);
+    }
 }
